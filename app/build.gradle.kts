@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.cameronsalisbury.trueshuffle"
+    namespace = "com.csalisbury.trueshuffle"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.cameronsalisbury.trueshuffle"
+        applicationId = "com.csalisbury.trueshuffle"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -36,10 +36,13 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    defaultConfig {
+        manifestPlaceholders["redirectHostName"] = "callback"
+        manifestPlaceholders["redirectSchemeName"] = "com.csalisbury.trueshuffle"
+    }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -47,6 +50,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
+    implementation(libs.spotify.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
