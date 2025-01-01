@@ -38,13 +38,19 @@ class LoginActivity : AppCompatActivity() {
         val request =
             AuthorizationRequest.Builder(CLIENT_ID, AuthorizationResponse.Type.TOKEN, REDIRECT_URL)
                 .setShowDialog(true)
-                .setScopes(arrayOf("streaming"))
+                .setScopes(
+                    arrayOf(
+                        "playlist-read-private",
+                        "playlist-modify-public",
+                        "playlist-modify-private"
+                    )
+                )
                 .build()
 
         AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request)
-//        AuthorizationClient.openLoginInBrowser(this, request)
     }
 
+    @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -63,8 +69,8 @@ class LoginActivity : AppCompatActivity() {
                     edit.putLong("expires", System.currentTimeMillis() / 1000 + response.expiresIn)
                     edit.apply()
 
-                    val text = findViewById<TextView>(R.id.error_txt)
-                    text.text = "Logged in"
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
 
                 else -> {
@@ -74,25 +80,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-//    override fun onNewIntent(intent: Intent) {
-//        super.onNewIntent(intent)
-//
-//        val uri = intent.data;
-//        if (uri != null) {
-//            val response = AuthorizationResponse.fromUri(uri);
-//
-//            when (response.type) {
-//                AuthorizationResponse.Type.TOKEN -> {
-//                    val text = findViewById<TextView>(R.id.error_txt)
-//                    text.text = "Logged in"
-//                }
-//
-//                else -> {
-//                    val text = findViewById<TextView>(R.id.error_txt)
-//                    text.text = getString(R.string.unexpected_response_type, response.type)
-//                }
-//            }
-//        }
-//    }
 }

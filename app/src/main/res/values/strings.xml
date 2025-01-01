@@ -45,4 +45,5 @@
     </string>
     <string name="text_login">Login</string>
     <string name="unexpected_response_type">Unexpected response type: %1$s</string>
+    <string name="shuffle">Shuffle</string>
 </resources>
