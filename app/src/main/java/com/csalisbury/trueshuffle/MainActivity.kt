@@ -7,21 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csalisbury.trueshuffle.services.SpotifyApiService
 import kaaes.spotify.webapi.android.models.PlaylistSimple
+import javax.inject.Inject
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
-    private var _apiService: SpotifyApiService? = null
-    private val apiService: SpotifyApiService
-        get() {
-            if (_apiService == null) {
-                val token = getSharedPreferences("spotify", MODE_PRIVATE)
-                    .getString("token", "") ?: ""
-                _apiService = SpotifyApiService(token)
-            }
-            return _apiService!!
-        }
+    @Inject
+    lateinit var apiService: SpotifyApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

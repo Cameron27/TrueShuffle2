@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -54,6 +55,8 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.spotify.auth)
     implementation(libs.spotify.web.api.android)
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

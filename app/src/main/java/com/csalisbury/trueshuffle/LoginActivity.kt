@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.csalisbury.trueshuffle.services.SpotifyApiService
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
+    @Inject
+    lateinit var apiService: SpotifyApiService
+
     companion object {
         private const val CLIENT_ID = "c4a1a641314d4d99b9df5304449a6c8d"
         private const val REDIRECT_URL = "com.csalisbury.trueshuffle://callback"
@@ -17,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as MyApplication).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -54,11 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
             when (response.type) {
                 AuthorizationResponse.Type.TOKEN -> {
-                    val sp = getSharedPreferences("spotify", MODE_PRIVATE)
-                    val edit = sp.edit()
-                    edit.putString("token", response.accessToken)
-                    edit.putLong("expires", System.currentTimeMillis() / 1000 + response.expiresIn)
-                    edit.apply()
+                    apiService.setToken(response.accessToken)
 
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
