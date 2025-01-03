@@ -22,19 +22,24 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="callback"
-                    android:scheme="cam.csalisbury.trueshuffle"/>
+                    android:scheme="cam.csalisbury.trueshuffle" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.TrueShuffle" />
+        <activity
+            android:name=".ShuffleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TrueShuffle.Dialog" />
     </application>
 
 </manifest>
