@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csalisbury.trueshuffle.services.SpotifyApiService
+import com.csalisbury.trueshuffle.shuffle.Shuffle
 import kaaes.spotify.webapi.android.models.PlaylistSimple
 import javax.inject.Inject
 import kotlin.concurrent.thread
@@ -13,6 +14,9 @@ import kotlin.concurrent.thread
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var apiService: SpotifyApiService
+
+    @Inject
+    lateinit var shuffles: Set<@JvmSuppressWildcards Shuffle>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as MyApplication).appComponent.inject(this)
@@ -25,7 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupPlaylistList() {
         thread {
-            val playlists = apiService.getPlaylists()
+            var playlists = apiService.getPlaylists()
+            playlists =
+                playlists.filter { p1 -> !shuffles.any { s -> playlists.any { p2 -> p1.name == "${p2.name} ${s.suffix}" } } }
+
             val playlistAdapter = PlaylistAdapter(playlists)
 
             playlistAdapter.setOnShuffleListener(::showShufflePlaylistPopup)
@@ -40,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showShufflePlaylistPopup(playlist: PlaylistSimple) {
         val intent = Intent(this, ShuffleActivity::class.java)
+        intent.putExtra("PlaylistId", playlist.id)
         startActivity(intent)
     }
 }

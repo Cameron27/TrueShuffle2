@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.csalisbury.trueshuffle.shuffle.Shuffle
-import kaaes.spotify.webapi.android.models.PlaylistSimple
 
 class ShuffleAdapter(private val shuffles: List<Shuffle>) :
     RecyclerView.Adapter<ShuffleAdapter.ViewHolder>() {
@@ -27,8 +26,14 @@ class ShuffleAdapter(private val shuffles: List<Shuffle>) :
         viewHolder.playlistName.text = shuffles[position].name
 
         viewHolder.shuffleButton.setOnClickListener {
-            
+            onShuffleAction(shuffles[position])
         }
+    }
+
+    private var onShuffleAction: (Shuffle) -> Unit = {}
+
+    fun setOnShuffleListener(action: (Shuffle) -> Unit) {
+        onShuffleAction = action
     }
 
     override fun getItemCount() = shuffles.size
