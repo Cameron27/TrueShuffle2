@@ -1,15 +1,8 @@
 package com.csalisbury.trueshuffle
 
 import android.app.Application
-import dagger.Component
-import javax.inject.Singleton
-
-@Component
-@Singleton
-interface ApplicationComponent {
-    fun inject(activity: MainActivity)
-    fun inject(activity: LoginActivity)
-}
+import com.csalisbury.trueshuffle.di.ApplicationComponent
+import com.csalisbury.trueshuffle.di.DaggerApplicationComponent
 
 class MyApplication : Application() {
     val appComponent: ApplicationComponent = DaggerApplicationComponent.create()

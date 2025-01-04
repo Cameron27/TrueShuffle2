@@ -1,4 +1,8 @@
 package com.csalisbury.trueshuffle.shuffle
 
-interface Shuffle {
+import javax.inject.Inject
+
+open class Shuffle @Inject constructor() {
+    open val name: String = "Shuffle"
+    open val sortOrder = 1
 }
