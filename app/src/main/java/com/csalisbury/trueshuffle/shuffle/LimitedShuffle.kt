@@ -9,7 +9,9 @@ class LimitedShuffle @Inject constructor(apiService: SpotifyApiService) : Shuffl
     override val name = "Limited Shuffle"
     override val suffix = "Limited"
     override val sortOrder = 2
-    private val artistLimit = 15
+
+    @ShuffleProperty
+    var artistLimit = 15
 
     override fun shuffleAlgorithm(tracks: List<PlaylistTrack>): List<PlaylistTrack> {
         return tracks.groupBy { it.track.artists.firstOrNull()?.name ?: "" }
