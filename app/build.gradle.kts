@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.spotify.auth)
     implementation(libs.spotify.web.api.android)
     implementation(libs.dagger)
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.21")
+    implementation(libs.kotlin.reflect)
     kapt(libs.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

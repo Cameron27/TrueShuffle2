@@ -1,6 +1,7 @@
 [versions]
 agp = "8.7.3"
 dagger = "2.54"
+kotlinReflect = "2.0.21"
 spotifyAuth = "2.1.2"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
@@ -19,6 +20,7 @@ spotifyWebApiAndroid = "0.4.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
 spotify-auth = { module = "com.spotify.android:auth", version.ref = "spotifyAuth" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
